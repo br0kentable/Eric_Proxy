@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/broken_table2', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/broken_table8', {useNewUrlParser: true});
 
 const db = mongoose.connection;
 

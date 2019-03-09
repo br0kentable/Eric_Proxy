@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import $ from 'jquery';
 import PhotoGallery from './PhotoGallery.js';
 import PhotoSlider from './PhotoSlider.js';
 import Modal from './Modal.js';

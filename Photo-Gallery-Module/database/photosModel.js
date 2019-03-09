@@ -7,11 +7,7 @@ const photoGallerySchema = Schema({
   id: String,
   restaurantName: String, 
   heroImage: String,
-  galleryLeft: String,
-  galleryCenter: String,
-  galleryRight: String,
-  galleryScroller: String,
-  photos: Array,
+  photos: Array
 });
 
 var PhotoGallery = mongoose.model('PhotoGallery', photoGallerySchema);

@@ -10,9 +10,6 @@ var getPhotosForRestaurant = function(id, callback) {
   })
 }
 
-var getPhotoGalleryForRestaurant = function(id, callback) {
-  
-}
 
 var updatePhotoCollectionForRestaurant = function(id, callback) {
 
@@ -24,7 +21,6 @@ var deletePhotoForRestaurant = function(id, callback) {
 
 module.exports = {
   getPhotosForRestaurant,
-  getPhotoGalleryForRestaurant,
   updatePhotoCollectionForRestaurant,
   deletePhotoForRestaurant
 }
