@@ -3,7 +3,7 @@ import axios from 'axios';
 import PhotoGallery from './PhotoGallery.js';
 import PhotoSlider from './PhotoSlider.js';
 import Modal from './Modal.js';
-import Slide from './Slide.js';
+
 
 
 
@@ -17,21 +17,21 @@ class App extends React.Component {
       showModal: false,
       currentIndex: 0
     }
-    // console.log('inside the App constructor', this.state);
-    // this.renderSlide = this.renderSlide.bind(this);
+    console.log('inside the App constructor', this.state);
     this.handleImageClick = this.handleImageClick.bind(this);
   }
 
-    componentDidMount() {
+    componentWillMount() {
       const app = this;
       //used the below console.log to see/get the param from  
       let id = location.pathname.split('/')[2];
+      console.log('before axios, pathname', id)
       axios.get(`http://localhost:3002/api/restaurants/${id}`)
         .then(result => {
-          console.log('inside willMount:', result.data)
+          console.log('inside willMount:', result.data[0].photos.slice(0, 9));
           app.setState({
             hero: result.data[0].heroImage,
-            galleryWindow: [  
+            galleryWindow: [
               result.data[0].galleryLeft,
               result.data[0].galleryLeft,
               result.data[0].galleryCenter,
@@ -43,7 +43,7 @@ class App extends React.Component {
               result.data[0].galleryRight,
               result.data[0].galleryRight
             ],
-            galleryPhotos: result.data[0].photos,
+            galleryPhotos: this.state.galleryWindow.concat(result.data[0].photos),
             showModal: false,
           });
         })
@@ -73,20 +73,18 @@ class App extends React.Component {
       })
     }
 
-    render() {
-      
+    render() { 
       const gallery = this.state.galleryWindow.map((image, index) => {
         return <img key={index} src={image + `?sig=${index}`} onClick={() => this.handleImageClick(index)}/>
       })  
       const index = this.state.currentIndex;
-      // console.log('inside the App', this.state);
       return (
         <div> 
           <div className="hero-banner">
             <img src={this.state.hero} onClick={this.handleShow} style={heroImageStyles}/>
           </div> 
         
-        <div className="photos-gallery-container" style={photosGalleryContainerStyles}>
+        <div className="ui container" style={photosGalleryContainerStyles}>
 
           <h2 className="photos-gallery-header" style={galleryHeaderStyles}> {this.state.galleryPhotos.length} Photos</h2>
           
@@ -104,7 +102,7 @@ class App extends React.Component {
          
           </div>
         </div> 
-          { this.state.showModal ? <Modal photos={this.state.galleryPhotos} gallery={this.state.galleryWindow}
+          { this.state.showModal ? <Modal photos={this.state.galleryPhotos} gallery={this.state.galleryPhotos.slice(0, 9)}
                                           showModal={this.state.showModal} 
                                           handleHide={click => this.setState({ showModal: !this.state.showModal })} 
                                           slideIndex={this.state.currentIndex}
@@ -125,23 +123,24 @@ const heroImageStyles = {
 const photosGalleryContainerStyles = {
   display: 'block',
   height: '350px',
-  width: '690px'
+  width: '690px',
 }
 
 const galleryHeaderStyles = {
   height: '42px',
-  width: '608px',
-  marginBlockStart: '0.83em',
-  marginBlockEnd: '0.83em',
+  width: '650px',
+  marginBlockStart: '20px',
+  marginBlockEnd: '16px',
   fontSize: '24px',
   fontWeight: '700',
-  lineHeight: '32px',
+  lineHeight: '50px',
   color: '#2d333f',
-  borderBottom: '1px solid #d8d9db',
+  borderBottom: '1.5px solid rgb(182, 183, 185)',
   paddingBottom: '16px',
-  margin: '0 0 5px 0',
+  margin: '10px 16px 16px 10px',
   display: 'flex',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  textSizeAdjust: '100%'
 } 
 
 const galleryLayoutStyles = {
@@ -162,6 +161,8 @@ const left1 = {
   gridColumnEnd: 'col2',
   gridRowStart: 'row1',
   gridRowEnd: 'row2-left',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center'
 }
 
 const left2 = {
@@ -171,6 +172,8 @@ const left2 = {
   gridRowEnd: 'end',
   gridGap: '1px',
   rowGap: '1px', 
+  backgroundSize: 'cover',
+  backgroundPosition: 'center'
 }
 
 const ctr = {
