@@ -10,7 +10,7 @@ import PhotoHeading from './photoHeading.jsx';
 import DetailsSub from './detailsSubheading.jsx';
 import PhotoBase from './photoBase.jsx';
 import Menu from './menu.jsx';
-// import MenuFooter from './menuFooter.jsx';
+import MenuFooter from './menuFooter.jsx';
 
 const axios = require('axios');
 
@@ -202,6 +202,7 @@ class Eatery extends Component {
             <VenueDetails {...minutiae} />
           </Col>
         </Row>
+        <MenuFooter />
       </Container>
     );
   }

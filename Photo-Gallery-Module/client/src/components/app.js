@@ -43,7 +43,7 @@ class App extends React.Component {
               result.data[0].galleryRight,
               result.data[0].galleryRight
             ],
-            galleryPhotos: this.state.galleryWindow.concat(result.data[0].photos),
+            galleryPhotos: result.data[0].photos,
             showModal: false,
           });
         })
