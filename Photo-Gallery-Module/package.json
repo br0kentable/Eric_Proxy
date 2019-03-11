@@ -19,7 +19,9 @@
   },
   "scripts": {
     "start": "nodemon server/server.js",
-    "react-dev": "webpack -d --watch"
+    "build": "webpack --config webpack.config.js --watch",
+    "deploy": "aws s3 sync build/ s3://fec-opentable",
+    "seed": "seed/photosSeeder.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -48,6 +50,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "grunt": "^1.0.3",
     "jest": "^24.1.0",
     "nodemon": "^1.18.10",
     "request": "^2.88.0",
